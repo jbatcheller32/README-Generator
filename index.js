@@ -2,95 +2,109 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 
+const generateReadMe = ({ title, description, tableOfContents, installation, usage, license, contribution, tests, questions }) =>
 
-// TODO: Create an array of questions for user input
-const questions = [
+    `# Title: \n ${title}
+# Description: \n ${description}
+# Table of Contents: \n${tableOfContents}
+# Installation: \n${installation}
+# Usage: \n${usage}
+# License:\n ${license}
+# Contributions:\n ${contribution}
+# Tests:\n ${tests}
+# Questions:\n${questions}
+`
 
-    {
-        type: 'input',
-        name: 'Title',
-        message: 'What is the name of your project?'
-    },
+// my array of questions to be passed into the readme file
 
-    {
-        type: 'input',
-        name: 'Descirption',
-        message: 'Please give a brief description of your project.'
-    },
+inquirer
+    .prompt([
+        {
+            type: 'input',
+            name: 'Title',
+            message: 'What is the name of your project?'
+        },
 
-    {
-        type: "input",
-        name: 'Table of Contents',
-        message: 'Add table of contents information here.'
+        {
+            type: 'input',
+            name: 'Descirption',
+            message: 'Please give a brief description of your project.'
+        },
 
-    },
+        {
+            type: "input",
+            name: 'Table of Contents',
+            message: 'Add table of contents information here.'
 
-    {
-        type: "input",
-        name: 'Installation',
-        message: 'Add installation steps here.'
+        },
 
-    },
+        {
+            type: "input",
+            name: 'Installation',
+            message: 'Add installation steps here.'
 
-    {
-        type: "input",
-        name: 'Usage',
-        message: 'Add usage steps here.'
+        },
 
-    },
+        {
+            type: "input",
+            name: 'Usage',
+            message: 'Add usage steps here.'
 
-    {
-        type: "checkbox",
-        name: 'License',
-        message: 'Yes / No',
-        choices: ['Yes', 'No']
+        },
 
-    },
+        {
+            type: "checkbox",
+            name: 'License',
+            message: 'Yes / No',
+            choices: ['Yes', 'No']
 
-    {
-        type: "input",
-        name: 'Contribution',
-        message: 'What are some steps for contribution?',
+        },
 
-    },
+        {
+            type: "input",
+            name: 'Contribution',
+            message: 'What are some steps for contribution?',
 
-    {
-        type: "input",
-        name: 'Tests',
-        message: 'How can this app be tested?',
+        },
 
-    },
+        {
+            type: "input",
+            name: 'Tests',
+            message: 'How can this app be tested?',
 
-    {
-        type: "input",
-        name: 'Questions',
-        message: 'Any questions?',
+        },
 
-    },
+        {
+            type: "input",
+            name: 'Questions',
+            message: 'Any questions?',
 
-
-];
-inquirer.prompt(questions)
-    .then((data) =>
-        console.log(data));
-
-
-
-// TODO: Create a function to write README file
-// function writeToFile() {
-
-// const createFile = 'README.md';
-
-// fs.writeFile(createFile, (err) =>
-// err ? console.error(err) : console.log('Success!'));
-
-// fs.writeFile('README.md', questions, (err) =>
-// err ? console.error(err) : console.log("Success!")));
+        },
 
 
+    ])
+
+    .then((response) => {
+
+        const answers = generateReadMe(response);
 
 
-//fileName, data
+        fs.writeFile('README.md', answers, (err) =>
+            err ? console.error(err) : console.log("Success!"));
+
+
+    });
+
+
+
+
+    
+
+
+
+
+
+
 
 // TODO: Create a function to initialize app
 // function init() {}
@@ -99,4 +113,3 @@ inquirer.prompt(questions)
 // init();
 
 
-//const file = `${data.name.split(' ').join(' ')}.json`;
